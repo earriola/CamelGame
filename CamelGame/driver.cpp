@@ -15,6 +15,10 @@ char displayMenu();
 void clearScreen();
 bool isValid(char choice);
 void drinkCanteen(int &canteenDrinks, int &thirst);
+void aheadModerate(int &thirst, int &camelTiredness, int &miles, int &nativesDistance);
+void aheadFull(int &thirst, int &camelTiredness, int &miles, int &nativesDistance);
+void stopForNight(int &camelTiredness);
+void statusCheck(int canteenDrinks, int miles, int nativesDistance);
 
 int main()
 {
@@ -32,6 +36,11 @@ int main()
 	while (!done)
 	{
 		userChoice = displayMenu();
+		
+		if ((userChoice == 'Q') || (userChoice == 'q'))
+		{
+			done = true;
+		}
 	}
 	
 	return 0;
@@ -43,7 +52,7 @@ void displayEntranceMessage()
 	cout << "You have stolen a camel to make your way across the great Mobi desert." << endl;
 	cout << "The natives want their camel back and are chasing you down!" << endl;
 	cout << "Survive your desert trek and out run the natives." << endl;
-}
+}// end displayEntranceMessage
 
 char displayMenu()
 {
@@ -63,7 +72,9 @@ char displayMenu()
 		cout << "ERROR! Enter valid choice from the menu." << endl;
 		userChoice = displayMenu();
 	}
-}
+	
+	return userChoice;
+}// end displayMenu
 
 void clearScreen()
 {
@@ -71,7 +82,7 @@ void clearScreen()
 	{
 		cout << endl << endl;
 	}
-}
+}// end clearScreen
 
 bool isValid(char choice)
 {
@@ -104,7 +115,7 @@ bool isValid(char choice)
 		default: return false;
 		break;
 	}
-}
+}// end isValid
 
 void drinkCanteen(int &canteenDrinks, int &thirst)
 {
@@ -117,4 +128,40 @@ void drinkCanteen(int &canteenDrinks, int &thirst)
 		thirst = 0;
 		canteenDrinks = canteenDrinks - 1;
 	}
-}
+}// end drinkCanteen
+
+void aheadModerate(int &thirst, int &camelTiredness, int &miles, int &nativesDistance)
+{
+	miles = miles + (rand() % 12 + 5);
+	cout << miles << "traveled." << endl;
+	
+	thirst = thirst + 1;
+	
+	camelTiredness = camelTiredness + 1;
+	
+	nativesDistance = nativesDistance + (rand() % 14 + 7);
+}// end aheadModerate
+
+void aheadFull(int &thirst, int &camelTiredness, int &miles, int &nativesDistance)
+{
+	miles = miles + (rand() % 20 + 10);
+	cout << miles << "traveled." << endl;
+	
+	thirst = thirst + 1;
+	
+	camelTiredness = camelTiredness + (rand() % 3 + 1);
+	
+	nativesDistance = nativesDistance + (rand() % 14 + 7);
+}// end aheadFull
+
+void stopForNight(int &camelTiredness)
+{
+	camelTiredness = 0;
+}// end stopForNight
+
+void statusCheck(int canteenDrinks, int miles, int nativesDistance)
+{
+	cout << "Miles traveled: " << miles << endl;
+	cout << "Drinks in canteen: " << canteenDrinks << endl;
+	cout << "The natives are " << nativesDistance << " miles behind you." << endl;
+}// end statusCheck
